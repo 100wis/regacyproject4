@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.kosa.pro30.member.domain.MemberDTO"  alias="MemberDTO" />
+		<typeAlias type="com.kosa.pro30.board.domain.AttacheFileDTO"  alias="AttacheFileDTO" />
+		<typeAlias type="com.kosa.pro30.board.domain.BoardDTO"  alias="BoardDTO" />
+		<typeAlias type="com.kosa.pro30.notice.domain.NoticeDTO"  alias="NoticeDTO" />
+	</typeAliases>
+</configuration>

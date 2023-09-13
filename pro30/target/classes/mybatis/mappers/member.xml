@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+	
+<!-- 회원 정보 수정 -->	
+	<select id="update" resultType="MemberDTO" parameterType="MemberDTO">
+		update member
+		set pwd = #{pwd},
+			uname = #{uname},
+			birth = #{birth},
+			gender = #{gender},
+			phone = #{phone},
+			email = #{email}
+		where userid =#{userid}	
+	</select>
+	
+<!-- 회원정보가져오기 -->
+	<select id="getUserInfo" resultType="MemberDTO" parameterType="MemberDTO">
+		select *
+		from member
+		where userid = #{userid}
+	</select>
+	
+<!-- 회원 가입 -->
+	<insert id="insert">
+	   INSERT INTO member (userid, pwd, uname, birth, gender, phone, email)
+	   VALUES (#{userid}, #{pwd}, #{uname}, #{birth}, #{gender}, #{phone}, #{email})
+	</insert>
+	
+<!-- 회원정보삭제하기 -->
+	<delete id="delete" >
+		delete from member where userid =#{userid}
+	</delete>
+	
+<!-- 커밋하기 -->
+	<select id="commit" resultType="MemberDTO" parameterType="MemberDTO">
+		delete from member where userid =#{userid}
+	</select>
+		
+
+
+
+</mapper>
