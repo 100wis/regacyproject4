@@ -20,6 +20,8 @@ public class MemberDTO {
 	private String gender;
 	private String phone;
 	private String email;
+	private String adminYN;
+	private String[] userids;
 	
 	
 	// 로그인 - 비밀번호 일치여부

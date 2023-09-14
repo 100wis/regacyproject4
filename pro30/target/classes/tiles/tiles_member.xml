@@ -21,7 +21,28 @@
 	<definition name="main" extends="baseLayout">
 		<put-attribute name="title" value="메인 페이지"/>
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
-	</definition>		
+	</definition>	
+	
+	
+<!-- 관리자 tiles	 -->
+	<definition name="adminbaseLayout" template="/WEB-INF/views/admin/layout.jsp">
+		<put-attribute name="title" value=""/>	
+		<put-attribute name="header" value="/WEB-INF/views/admin/header.jsp"/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/admin/footer.jsp"/>	
+	</definition>
+	
+	<definition name="admin/adminMain" extends="adminbaseLayout">
+		<put-attribute name="title" value="관리자 메인 페이지"/>
+		<put-attribute name="body" value="/WEB-INF/views/admin/adminMain.jsp"/>
+	</definition>	
+	
+	<definition name="admin/memberlist" extends="adminbaseLayout">
+		<put-attribute name="title" value="전체 회원 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/admin/memberlist.jsp"/>
+	</definition>
+	
+<!-- 관리자 tiles	 -->	
 	
 	
 	<definition name="board/boardList" extends="baseLayout">

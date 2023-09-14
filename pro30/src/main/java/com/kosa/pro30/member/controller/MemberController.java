@@ -19,6 +19,7 @@ import com.kosa.pro30.member.service.MemberService;
 @Controller
 public class MemberController {
 	
+	//의존성 주입
 	@Autowired
 	private MemberService memberService;
 	
@@ -31,6 +32,7 @@ public class MemberController {
 		
 	} 
 	
+	//로그인 컨트롤러
 	@ResponseBody
 	@RequestMapping("/member/login.do")
 	public Map<String, Object> login(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -49,6 +51,7 @@ public class MemberController {
 		
 	} 
 	
+	//로그아웃 컨트롤러
 	@ResponseBody
 	@RequestMapping("/member/logout.do")
 	public Map<String, Object> logout(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -64,6 +67,7 @@ public class MemberController {
 	    return jsonResult;
 	}
 	
+	//회원 수정 컨트롤러
 	@ResponseBody
 	@RequestMapping("/member/update.do")
 	public Map<String, Object> update(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -81,6 +85,7 @@ public class MemberController {
  		
 	} 
 	
+	//회원가입 컨트롤러
 	@ResponseBody
 	@RequestMapping("/member/insert.do")
 	public Map<String, Object> insert(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -90,7 +95,7 @@ public class MemberController {
  		
 	} 
 	
-	
+	//회원탈퇴 컨트롤러
 	@ResponseBody
 	@RequestMapping("/member/delete.do")
 	public Map<String, Object> delete(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -105,6 +110,7 @@ public class MemberController {
 		return jsonResult;	
 	} 
 	
+	//중복아이디 체크 컨트롤러
 	@ResponseBody
 	@RequestMapping("/member/IDcheck.do")
 	public Map<String, Object> IDcheck(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -117,6 +123,26 @@ public class MemberController {
  	     session.invalidate();
     	 
 		return jsonResult;	
+	} 
+	
+	
+	//아이디 찾기 컨트롤러
+	@ResponseBody
+	@RequestMapping("/member/lookforID.do")
+	public Map<String, Object> lookforID(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    	System.out.println("아이디 찾기 컨트롤러 시작!");
+    	Map<String, Object> jsonResult = memberService.lookforID(memberDTO);
+		return jsonResult;		
+	} 
+	
+	
+	//패스워드 찾기 컨트롤러
+	@ResponseBody
+	@RequestMapping("/member/lookforPWD.do")
+	public Map<String, Object> lookforPWD(@RequestBody MemberDTO memberDTO, HttpServletRequest req, HttpServletResponse res) throws Exception {
+    	System.out.println("비밀번호 찾기 컨트롤러 시작!");
+    	Map<String, Object> jsonResult = memberService.lookforPWD(memberDTO);
+		return jsonResult;		
 	} 
 	
 } 

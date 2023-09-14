@@ -1,6 +1,7 @@
 package com.kosa.pro30.member.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ public class MemberService {
 		System.out.println(memberDTO);
 		Map<String, Object> jsonObject = new HashMap<>();
 		MemberDTO loginmember = memberDAO.getUser(memberDTO);
+		System.out.println("로그인 회원 서비스에서 loginmember 받아왔는지 확인 : "+ loginmember);
 		if(loginmember.isEqualsPwd(memberDTO)) {
 			jsonObject.put("loginmember", loginmember);
 			jsonObject.put("status", true);
@@ -109,6 +111,68 @@ public class MemberService {
 			}
 		return jsonObject;
 		}
+		
+		//아이디 찾기
+		public Map<String, Object> lookforID(MemberDTO memberDTO) {
+			System.out.println("아이디찾기 서비스 부분 왔다!");
+			System.out.println(memberDTO);
+			Map<String, Object> jsonObject = new HashMap<>();
+			String Userid = memberDAO.getID(memberDTO);
+			if(Userid != null) {
+				jsonObject.put("status", true);
+				jsonObject.put("message", "아이디 : " +Userid);
+				
+			}else {
+				jsonObject.put("status", false);
+				jsonObject.put("message", "입력하신 내용과 일치하는 회원정보가 없습니다.");
+			}
+			
+			return jsonObject;
+		}
+		
+		
+		//비밀번호 찾기
+		public Map<String, Object> lookforPWD(MemberDTO memberDTO) {
+			System.out.println("비밀번호 찾기 서비스 부분 왔다!");
+			System.out.println(memberDTO);
+			Map<String, Object> jsonObject = new HashMap<>();
+			String UserPWD = memberDAO.getPWD(memberDTO);
+			if(UserPWD != null) {
+				jsonObject.put("status", true);
+				jsonObject.put("message", "비밀번호 : " +UserPWD);
+				
+			}else {
+				jsonObject.put("status", false);
+				jsonObject.put("message", "입력하신 내용과 일치하는 회원정보가 없습니다.");
+			}
+			
+			return jsonObject;
+		}
+		
+		//전체회원목록
+		public List<MemberDTO>list() {
+			System.out.println("회원목록 서비스");
+			List<MemberDTO> memberlist = memberDAO.getList();
+			return memberlist;
+			
+	}
+
+
+
+		public int deletemembers(MemberDTO memberDTO) {
+			System.out.println("관리자 회원들삭제 서비스 부분 왔다!");
+						
+			int num = 0;
+			if(memberDTO.getUserids().length > 0) {
+				for(String userid : memberDTO.getUserids()) {
+					memberDTO.setUserid(userid);
+					memberDAO.delete(memberDTO);
+					num++;
+			}
+		}
+		return num;
+			
+	}
 	
 	
 

@@ -24,8 +24,10 @@ public class BoardDTO {
 	private Date mod_date;		// 수정날짜
 	private int view_count;		// 조회수
 	private String delete_yn; 	// 삭제유무
-	private String N;
-	private int    level = 1; 
+	private int level;
+    private int startnum ;
+    private int endnum ;
+
 
 	private String [] ids;         // 삭제시 사용될 아이디들
 	

@@ -19,7 +19,8 @@
 	
 <!-- 회원정보가져오기 -->
 	<select id="getUserInfo" resultType="MemberDTO" parameterType="MemberDTO">
-		select *
+		select 
+			*
 		from member
 		where userid = #{userid}
 	</select>
@@ -39,8 +40,27 @@
 	<select id="commit" resultType="MemberDTO" parameterType="MemberDTO">
 		delete from member where userid =#{userid}
 	</select>
+	
+<!-- 아이디 찾기 -->
+	<select id="lookforID" resultType="String" parameterType="MemberDTO">
+		select userid
+		from member
+		where uname = #{uname} and email = #{email}
+	</select>
+	
+<!-- 비밀번호 찾기 -->
+	<select id="lookforPWD" resultType="String" parameterType="MemberDTO">
+		select PWD
+		from member
+		where userid = #{userid} and email = #{email}
+	</select>
 		
-
+<!-- 전체 회원 가져오기 -->
+	<select id="list" resultType="MemberDTO">
+		select *
+		from member
+		where adminYN = 'N'
+	</select>
 
 
 </mapper>

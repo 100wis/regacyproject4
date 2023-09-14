@@ -29,7 +29,7 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #f4dfea;
     padding: 8px;
     text-align: center; /* 가운데 정렬로 변경 */
 }
@@ -39,7 +39,7 @@ tr {
 }
 
 th {
-    background-color: #ffb858;
+    background-color: #ffb3cbbd;
 }
 
  .buttons {

@@ -20,12 +20,12 @@
         </layout>   
     </appender>
 	
-	<!-- Application Loggers -->
+<!-- 	<!-- Application Loggers 
 	<logger name="com.kosa.pro30">
 		<level value="debug" />
 	</logger>
 	
-	<!-- 3rdparty Loggers -->
+	3rdparty Loggers
 	<logger name="org.springframework.core">
 		<level value="debug" />
 	</logger>
@@ -42,11 +42,11 @@
 		<level value="debug" />
 	</logger>
 
-	<!-- Root Logger -->
+	Root Logger
 	<root>
 		<priority value="debug" />
 		<appender-ref ref="console" />
 		<appender-ref ref="dailyFileFileAppend" />
-	</root>
+	</root> -->
 	
 </log4j:configuration>

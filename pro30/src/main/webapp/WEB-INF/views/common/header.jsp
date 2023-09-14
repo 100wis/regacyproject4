@@ -236,9 +236,9 @@
 	  
   }
   
-  function lookforID() {
-	  const uname = $("#lookforID #uname").val();
-	    const email = $("#lookforID #email").val();
+  function lookingID() {
+	  const uname = $("#lookforIDform #uname").val();
+	    const email = $("#lookforIDform #email").val();
 
 	    // 서버로 보낼 데이터 객체 생성
 	    const data = {
@@ -263,9 +263,9 @@
 	  
   }
   
-  function lookforPWD() {
-	  const userid = $("#lookforPWD #uname").val();
-	    const email = $("#lookforPWD #email").val();
+  function lookingPWD() {
+	  const userid = $("#lookforPWDform #userid").val();
+	    const email = $("#lookforPWDform #email").val();
 
 	    // 서버로 보낼 데이터 객체 생성
 	    const data = {
@@ -308,7 +308,7 @@
                    width: 300,
                    modal: true,
                    buttons: {
-                 	  "찾기" : lookforID,
+                 	  "아이디 찾기" : lookingID,
                      "닫기" : function () {
                        $(this).dialog("close");
                      }
@@ -327,7 +327,7 @@
                      width: 300,
                      modal: true,
                      buttons: {
-                   	  "비밀 번호 찾기":lookforPWD,
+                   	  "비밀 번호 찾기":lookingPWD,
                        "닫기": function () {
                          $(this).dialog("close");
                        }

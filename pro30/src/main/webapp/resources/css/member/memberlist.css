@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+body {
+   
+    font-family: Arial, sans-serif;
+}
+
+#memberlisttitle {
+    text-align: center;
+    margin-top: 30px;
+    color: pink;
+}
+
+.pink-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+}
+
+th {
+   background-color: #fbaed2;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.pink-button {
+    background-color: #fbaed2;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 25px;
+    border-radius: 5px;
+}
+
+.pink-button:hover {
+    background-color: #ff4b7d; /* 마우스 호버 시 색상 변경 */
+}
