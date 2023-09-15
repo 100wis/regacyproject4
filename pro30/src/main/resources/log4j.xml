@@ -20,8 +20,8 @@
         </layout>   
     </appender>
 	
-<!-- 	<!-- Application Loggers 
-	<logger name="com.kosa.pro30">
+	<!-- Application Loggers -->
+	<!-- <logger name="com.kosa.pro30">
 		<level value="debug" />
 	</logger>
 	

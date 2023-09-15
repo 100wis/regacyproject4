@@ -40,6 +40,8 @@ public class BoardDTO {
 	public String getContentsHTML() {
 		return contents != null ? contents.replace("\n", "<br/>") : "";
 	}
+
+
 	
 
 	

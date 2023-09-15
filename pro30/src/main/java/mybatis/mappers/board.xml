@@ -8,17 +8,17 @@
 <!-- 페이징 10개씩 가져오기 -->
 	<select id="getPagingcontents" resultType="BoardDTO" parameterType="BoardDTO">
 		<![CDATA[
-			 select *
-			    from (
-			        select
-			            level, pid, boardid, title, writer_uid, reg_date, view_count
-			        from board
-			        where delete_yn = 'N'
-			        start with pid=0
-			        CONNECT BY PRIOR boardid = pid
-			        order SIBLINGS by view_count desc, boardid  
-			    ) A
-			    where rownum between ${startnum} and ${endnum}
+			SELECT  A.*
+			FROM (
+			    SELECT ROWNUM AS rnum, level, pid, boardid, title, writer_uid, reg_date, view_count
+			    FROM board
+			    WHERE delete_yn = 'N'
+			    START WITH pid = 0
+			    CONNECT BY PRIOR boardid = pid
+			    ORDER SIBLINGS BY view_count DESC, boardid DESC
+			) A
+
+			 where rnum between ${startnum} and ${endnum}
 		]]>
 
 	</select>
@@ -42,7 +42,61 @@
 		<select id="totalcount" resultType="int">
 			select count(*) from board where delete_yn = 'N'
 		</select>
+		
+<!--게시판 상세글 가져오기-->
+		<select id="getDetail" resultType="BoardDTO">
+			select * from board where boardid = ${boardid}
+		</select>
 	
+<!-- 게시글 등록하기 -->
+		<insert id="insert">
+		    INSERT INTO board (boardid, title, contents, writer_uid) 
+		    VALUES (boardid_sequence.NEXTVAL, #{title}, #{contents}, #{writer_uid})
+		</insert>
 
+		
+<!-- 게시글 수정하기 -->
+		<update id="update" >
+			UPDATE board 
+			SET title =  ${title},
+				contents =  ${contents},
+	    		mod_date = SYSDATE
+			WHERE boardid =${boardid}
+ 			
+		</update>	
+			
+<!-- 게시글 삭제하기 -->	
+		<delete id="delete" >
+			DELETE FROM board WHERE boardid = ${boardid}
+		</delete>		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 </mapper>

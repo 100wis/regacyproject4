@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+
+#insert_button {
+    color: white;
+    background-color: #febad1;
+    margin-left: 746px;
+    boarder: none;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#insert_board:hover {
+border-color : #fd71a2
+}
+
+
+
+#search{
+	margin-left: 183px;
+}
+
 #container {
     margin: 0 auto;
 }
@@ -8,6 +29,26 @@
 a {
     text-decoration: none;
 }
+
+
+#pagenum {
+	margin-top: 28px;
+    background-color: white;
+    board: 1px solid #f4dfea;
+    /* padding: 8px; */
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-color: #f4dfea;
+    border-radius: 50px;
+}
+
+
+#pagenum:hover {
+    border: 1px solid #f596c8; 
+}
+
 
 a:link, a:visited {
     color: black;
