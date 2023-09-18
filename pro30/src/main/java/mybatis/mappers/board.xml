@@ -5,6 +5,8 @@
 
 <mapper namespace="mapper.board">
 
+
+
 <!-- 페이징 10개씩 가져오기 -->
 	<select id="getPagingcontents" resultType="BoardDTO" parameterType="BoardDTO">
 		<![CDATA[
@@ -50,53 +52,42 @@
 	
 <!-- 게시글 등록하기 -->
 		<insert id="insert">
-		    INSERT INTO board (boardid, title, contents, writer_uid) 
-		    VALUES (boardid_sequence.NEXTVAL, #{title}, #{contents}, #{writer_uid})
+		    INSERT INTO board (pid, boardid, title, contents, writer_uid) 
+		    VALUES (#{pid}, boardid_sequence.NEXTVAL, #{title}, #{contents}, #{writer_uid})
 		</insert>
 
-		
 <!-- 게시글 수정하기 -->
 		<update id="update" >
 			UPDATE board 
-			SET title =  ${title},
-				contents =  ${contents},
+			SET title =  #{title},
+				contents =  #{contents},
 	    		mod_date = SYSDATE
-			WHERE boardid =${boardid}
- 			
+			WHERE boardid =#{boardid}		
 		</update>	
 			
 <!-- 게시글 삭제하기 -->	
-		<delete id="delete" >
-			DELETE FROM board WHERE boardid = ${boardid}
-		</delete>		
+		<update id="delete" >
+			UPDATE board SET DELETE_YN = 'Y' WHERE boardid =#{boardid}
+		</update>
+		
+<!--게시판 상세글 가져오기-->
+		<select id="SearchTitle" resultType="BoardDTO" parameterType="BoardDTO">
+			<![CDATA[
+            	select level, pid, boardid, title, writer_uid, reg_date, view_count
+		        from board
+		        where delete_yn = 'N' and title LIKE concat(concat('%',#{searchtext}),'%')
+		        start with pid=0
+		        CONNECT BY PRIOR boardid = pid
+		        order SIBLINGS by view_count desc, boardid 
+        ]]>
+		</select>
 		
 		
+<!-- 조회수 증가 -->
+		<update id="plusViewcount">
+			UPDATE board 
+			SET view_count = view_count+1
+			WHERE boardid = #{boardid}		
+		</update>			
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
 </mapper>

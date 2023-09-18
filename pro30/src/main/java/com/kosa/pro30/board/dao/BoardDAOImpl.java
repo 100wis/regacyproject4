@@ -63,11 +63,23 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int delete(BoardDTO board) {
 		System.out.println("DAOimpl delete에  온 보드 객체 : " + board);
-		int result = sqlSession.delete("mapper.board.delete",board);
+		int result = sqlSession.update("mapper.board.delete",board);
 		return result;
 	}
 	
-	
+//게시글 검색
+	@Override
+	public List<BoardDTO> SearchTitle(BoardDTO board) {
+		System.out.println("DAOimpl온 보드 객체 : " + board);
+	    return sqlSession.selectList("mapper.board.SearchTitle",board);
+	}
+	@Override
+	public void plusViewcount(BoardDTO board) {
+		System.out.println("조회수증가 DAO");
+		sqlSession.update("mapper.board.plusViewcount", board);
+		
+	}	
+
 
 
 

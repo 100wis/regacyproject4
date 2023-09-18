@@ -24,17 +24,12 @@ public class BoardDTO {
 	private Date mod_date;		// 수정날짜
 	private int view_count;		// 조회수
 	private String delete_yn; 	// 삭제유무
-	private int level;
-    private int startnum ;
-    private int endnum ;
-
-
+	private int level;			// 계층	
+    private int startnum ;		// 시작페이지
+    private int endnum ;        // 끝 페이지
+    private String searchtext = "";  // 검색 키워드
 	private String [] ids;         // 삭제시 사용될 아이디들
-	
 	private List<AttacheFileDTO> attacheFileList;
-	
-	//검색필드
-	private String searchTitle = "";
 	
 	// 글 작성 시 엔터키 역할 해주는 메서드
 	public String getContentsHTML() {

@@ -26,6 +26,7 @@ public class MemberService {
 		MemberDTO loginmember = memberDAO.getUser(memberDTO);
 		System.out.println("로그인 회원 서비스에서 loginmember 받아왔는지 확인 : "+ loginmember);
 		if(loginmember.isEqualsPwd(memberDTO)) {
+			jsonObject.put("logined_userid", loginmember.getUserid());
 			jsonObject.put("loginmember", loginmember);
 			jsonObject.put("status", true);
 			jsonObject.put("message", "로그인 성공");

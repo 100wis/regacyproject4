@@ -16,9 +16,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberDTO update(MemberDTO memberDTO) {
-		//�쉶�썝 �젙蹂� �닔�젙�븯怨�
 		sqlSession.selectOne("mapper.member.update", memberDTO);
-		//�닔�젙�맂 �쉶�썝 �젙蹂� 由ы꽩�븯湲�
 		return sqlSession.selectOne("mapper.member.getUserInfo", memberDTO);
 	}
 

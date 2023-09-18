@@ -1,6 +1,7 @@
 package com.kosa.pro30.board.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,10 +54,12 @@ public class BoardController {
 	    			board.setStartnum(1);
 	    			board.setEndnum(10);
 	    			model.addAttribute("boardList", boardService.getPagingcontents(board));
+	    			model.addAttribute("isSearched", false);
 	    		}else {
 	    			board.setStartnum(startnum);
 	    			board.setEndnum(endnum);
 	    			model.addAttribute("boardList", boardService.getPagingcontents(board));
+	    			model.addAttribute("isSearched", false);
 	    		}
 	    		
 	    		model.addAttribute("totalcount", boardService.totalcount());
@@ -72,9 +75,14 @@ public class BoardController {
 		@ResponseBody
 		@RequestMapping("/board/detail.do")
 		public BoardDTO getboarddetail(@RequestBody BoardDTO board, HttpServletRequest req, HttpServletResponse res) {
+
+			System.out.println("게시글 조회수 증가");
+			boardService.plusViewcount(board);
+	
 			System.out.println("게시판 상세보기 게시글 가져오기");
 			BoardDTO detail = boardService.getDetail(board);
 			System.out.println("상세정보 받아왔나 확인 : " + detail);
+
 			return detail;
 		}
 
@@ -87,8 +95,10 @@ public class BoardController {
 			int success = boardService.insert(board);
 			if(success !=0) {
 				jsonObject.put("status", true);
+				jsonObject.put("message", "게시글 등록이 완료되었습니다");
 			}else {
 				jsonObject.put("status", false);
+				jsonObject.put("message", "게시글 등록에 실패하였습니다.");
 			}
 			return jsonObject;
 		}
@@ -98,12 +108,16 @@ public class BoardController {
 		@RequestMapping("/board/update.do")
 		public Map<String,Object> update(@RequestBody BoardDTO board,HttpServletRequest req, HttpServletResponse res) {
 			System.out.println("보드 서비스 : 게시글 수정 ");
+			System.out.println("수정하기 보드 타이틀  " + board.getTitle());
+			System.out.println("수정하기 보드 타이틀  " + board.getContents());
 			int success = boardService.update(board);
 			Map<String, Object> jsonObject = new HashMap<>();
 			if(success !=0) {
 				jsonObject.put("status", true);
+				jsonObject.put("message", "게시글 수정이 완료되었습니다.");
 			}else {
 				jsonObject.put("status", false);
+				jsonObject.put("message", "게시글 수정에 실패하였습니다..");
 			}
 			return jsonObject;
 		}
@@ -117,12 +131,33 @@ public class BoardController {
 			Map<String, Object> jsonObject = new HashMap<>();
 			if(success !=0) {
 				jsonObject.put("status", true);
-				jsonObject.put("message", "게시글 등록이 완료되었습니다");
+				jsonObject.put("message", "게시글 삭제가 완료되었습니다.");
 			}else {
 				jsonObject.put("status", false);
-				jsonObject.put("message", "게시글 등록에 실패하였습니다.");
+				jsonObject.put("message", "게시글 삭제에 실패하였습니다.");
 			}
 			return jsonObject;
 		}	
+		
+		
+		
+	//검색 boardList 가져오기
+		@RequestMapping("/board/titlesearch.do")
+		public String SearchTitle(BoardDTO board, String searchtext, Model model) throws Exception {
+	    	System.out.println("제목검색 컨트롤러" + board.getSearchtext());
+	    	
+	    	board.setSearchtext(searchtext);
+	    	List<BoardDTO> searchedList = boardService.SearchTitle(board);
+	    	Map<String, Object> jsonObject = new HashMap<>();
+	    	
+	    	model.addAttribute("boardList", searchedList);
+	    	model.addAttribute("isSearched", true);
+    
+	    	
+	    	System.out.println("getPaginglist 쿼리문 걸쳐 받아온 boardlist : " + searchedList);
+	  
+			return "board/boardList";
+			
+		} 
 
 }

@@ -23,6 +23,10 @@ public interface BoardDAO {
 	
 	public int delete(BoardDTO board);
 
+	public List<BoardDTO> SearchTitle(BoardDTO board);
+
+	public void plusViewcount(BoardDTO board);
+
 
 
 	

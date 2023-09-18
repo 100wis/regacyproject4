@@ -194,6 +194,7 @@
         alert(json.message);
         if (json.status) {
           location.href = "<c:url value='/main.do'/>";
+          sessionStorage.removeItem('isLogined');
         }
       },
       error: function (error) {
@@ -226,6 +227,7 @@
 	        alert(json.message);
 	        if (json.status) {
 	          // 로그인이 성공하면 원하는 동작을 수행 (예: 리디렉션)
+	          sessionStorage.setItem('isLogined', true);
 	          location.href = "<c:url value='/main.do'/>";
 	        }
 	      },

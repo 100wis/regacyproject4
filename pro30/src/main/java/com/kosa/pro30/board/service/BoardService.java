@@ -27,13 +27,13 @@ public class BoardService {
 	
 	}
 	
-	//1. 게시판 목록
+	//게시판 목록
 	public List<BoardDTO> getPagingcontents(BoardDTO board) throws Exception {
 		System.out.println("board.service.getBoardList() 함수 호출됨");
 		return boardDAO.getPagingcontents(board);	
 	}
 
-	//6. 메인에 TOP5 출력하기
+	//메인에 TOP5 출력하기
 		public List<BoardDTO> boardTop5() throws Exception {
 			System.out.println("board.service.boardTop5() 함수 호출됨");
 			return boardDAO.boardTop5();
@@ -68,7 +68,18 @@ public class BoardService {
 		public int delete(BoardDTO board) {
 			System.out.println("보드 서비스 : 게시글 삭제 ");
 			return boardDAO.delete(board);
-		}	
+		}
+	//검색된 내용 가져오기	
+		public List<BoardDTO> SearchTitle(BoardDTO board) throws Exception {
+			System.out.println("검색 서비스");
+			return boardDAO.SearchTitle(board);	
+		}
+
+		public void plusViewcount(BoardDTO board) {
+			System.out.println("조회수증가 서비스");
+			boardDAO.plusViewcount(board);
+			
+		}
 	
 	
 	

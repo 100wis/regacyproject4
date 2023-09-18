@@ -43,8 +43,9 @@ public class MemberController {
     	if (jsonResult.containsKey("loginmember")) {
 			session.setAttribute("loginmember", jsonResult.get("loginmember"));
 			session.setAttribute("isLogined", true);
-			
-			System.out.println(jsonResult.get("member"));
+			session.setAttribute("logined_userid", jsonResult.get("logined_userid"));
+
+			System.out.println("logined_userid: " + jsonResult.get("logined_userid"));
 		}
 
 		return jsonResult;

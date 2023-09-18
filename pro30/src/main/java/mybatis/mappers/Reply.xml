@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.reply">
+
+
+<!-- 페이징 10개씩 가져오기 -->
+	<select id="getView10" resultType="ReplyDTO" parameterType="ReplyDTO">
+		<![CDATA[
+			select B.* 
+			from (
+			        SELECT  A.*,  ROWNUM as ANROW
+			        FROM (
+						    SELECT replyid,contents, writer_uid, reg_date
+						    FROM reply
+						    WHERE delete_yn = 'N' and boardid= #{boardid}
+						    ORDER BY reg_date DESC, replyid DESC
+						) A
+			    )B 
+			where ANROW between #{startnum} and #{endnum}
+		]]>
+
+	</select>
+	
+<!-- 댓글 등록하기 -->
+		<insert id="insert">
+		    INSERT INTO reply (BOARDID, REPLYID, CONTENTS, WRITER_UID) 
+		    VALUES (#{boardid}, replyid_sequence.NEXTVAL, #{contents}, #{writer_uid})
+		</insert>
+
+<!-- 가장 최신 댓글 가져오기 -->
+		<select id="getLastreply" resultType="ReplyDTO" parameterType="ReplyDTO">
+		    SELECT * FROM reply WHERE replyid = (SELECT MAX(replyid) FROM reply)
+		</select>
+		
+<!-- 댓글 삭제하기 -->	
+		<update id="delete" >
+			UPDATE reply SET DELETE_YN = 'Y' WHERE replyid =#{replyid}
+		</update>
+		
+<!-- 댓글 수정하기 -->	
+		<update id="update" >
+			UPDATE reply SET contents = #{contents}  WHERE replyid =#{replyid}
+		</update>
+		
+<!-- 댓글 하나 가져오기 -->
+		<select id="getreply" resultType="ReplyDTO" parameterType="ReplyDTO" >
+		    SELECT * FROM reply WHERE replyid = #{replyid}
+		</select>
+	
+</mapper>
