@@ -23,6 +23,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
 	</definition>	
 	
+	<definition name="board/boardList" extends="baseLayout">
+		<put-attribute name="title" value="게시판목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/boardList.jsp"/>
+	</definition>		
+	
+	<definition name="notice/noticeList" extends="baseLayout">
+		<put-attribute name="title" value="공지사항 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/notice/noticelist.jsp"/>
+	</definition>	
 	
 <!-- 관리자 tiles	 -->
 	<definition name="adminbaseLayout" template="/WEB-INF/views/admin/layout.jsp">
@@ -42,16 +51,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/admin/memberlist.jsp"/>
 	</definition>
 	
+	<definition name="admin/boardList" extends="adminbaseLayout">
+		<put-attribute name="title" value="관리자 게시판 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/admin/boardList.jsp"/>
+	</definition>
+	
+	<definition name="admin/noticeList" extends="adminbaseLayout">
+		<put-attribute name="title" value="관리자 공지사항 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/admin/noticelist.jsp"/>
+	</definition>
+	
 <!-- 관리자 tiles	 -->	
 	
 	
-	<definition name="board/boardList" extends="baseLayout">
-		<put-attribute name="title" value="게시판목록"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/boardList.jsp"/>
-	</definition>		
-	
-	
-	<definition name="board/detail" extends="baseLayout">
+<!-- 	필요없는거 아닌가?
+		<definition name="board/detail" extends="baseLayout">
 		<put-attribute name="title" value="게시판목록"/>
 		<put-attribute name="body" value="/WEB-INF/views/board/detail.jsp"/>
 	</definition>
@@ -64,6 +78,6 @@
 	<definition name="member/loginForm" extends="baseLayout">
 		<put-attribute name="title" value="게시판목록"/>
 		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp"/>
-	</definition>	
+	</definition>	 -->
 	
 </tiles-definitions>

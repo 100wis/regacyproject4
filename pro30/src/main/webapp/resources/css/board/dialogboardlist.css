@@ -1,0 +1,137 @@
+@charset "utf-8";
+
+
+
+
+/* Content Styles */
+#detailcontent {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#titleinfo h5 {
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+#titleinfo h2 {
+    font-size: 24px;
+    margin: 10px 0;
+    padding: 0;
+}
+
+#titleinfo p {
+    font-size: 14px;
+    color: #777;
+}
+
+#contents2 p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#reply {
+    margin-top: 20px;
+}
+
+.reply-item-container {
+    margin-top: 10px;
+}
+
+.reply-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.reply-num {
+    font-weight: bold;
+    color: #333;
+}
+
+.reply-contents {
+    margin-left: 10px;
+}
+
+.reply-writer-uid {
+    color: #777;
+}
+
+.reply-reg-date {
+    color: #777;
+    margin-left: 10px;
+}
+
+.reply-edit-link,
+.reply-delete-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.reply-edit-link:hover,
+.reply-delete-link:hover {
+    text-decoration: underline;
+}
+
+/* Form Styles */
+#insert_content_form,
+#comment_insert,
+#update_board,
+#insert_reply,
+#update_reply {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#insert_content_form input,
+#comment_insert input,
+#update_board input,
+#insert_reply input,
+#update_reply input,
+#insert_content_form textarea,
+#comment_insert textarea,
+#update_board textarea,
+#insert_reply textarea,
+#update_reply textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+
+input#Searchbutton{
+    background-color: pink;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+
+
+
+
+/* Button Styles */
+input[type="button"] {
+    background-color: #c0c0c0;
+    color: #fff;
+    border: none;
+    padding: 7px 6px;
+    cursor: pointer;
+    font-size: 11px;
+    text: 10px;
+    border-radius: 5px;
+}
+
+input[type="button"]:hover {
+    background-color: #0056b3;
+}

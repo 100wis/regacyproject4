@@ -1,17 +1,25 @@
 package com.kosa.pro30.board.service;
 
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.kosa.pro30.board.dao.ReplyDAO;
+import com.kosa.pro30.board.domain.BoardDTO;
 import com.kosa.pro30.board.domain.ReplyDTO;
+import com.kosa.pro30.member.domain.MemberDTO;
+import com.kosa.pro30.member.service.MemberService;
 
 
 
@@ -20,6 +28,9 @@ public class ReplyService {
 	
 	@Autowired
 	private ReplyDAO replyDAO;
+	
+	
+	
 	
 	// 댓글리스트 불러오기
 	public List<ReplyDTO> getReplyList(ReplyDTO reply){
@@ -46,6 +57,13 @@ public class ReplyService {
 			jsonObject.put("status", false);
 			jsonObject.put("message", "댓글 등록 실패");
 		}
+		
+
+    	
+
+		
+		
+		
 		return jsonObject;
 	}
 
@@ -64,6 +82,25 @@ public class ReplyService {
 			return updateReply;
 		}
 		return reply;
+	}
+	
+	
+	@Autowired
+	 private JavaMailSender mailSender;
+	
+   @Async
+	public void sendMail(String to_emailadress, String subject, String body) {
+     MimeMessage message = mailSender.createMimeMessage();
+     try {
+		MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+		messageHelper.setFrom("100wisdom0409@gamil.com", "system");
+		messageHelper.setSubject(subject);
+		messageHelper.setTo(to_emailadress); 
+		messageHelper.setText(body);
+		mailSender.send(message); 
+     }catch(Exception e){
+		e.printStackTrace();
+	  }
 	}
 	
 	

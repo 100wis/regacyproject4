@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -124,6 +125,56 @@ public class AdminController {
 
 		return jsonResult;
 	} 
+		
+		
+		
+		
+//공지사항 리스트 가져오면서 페이지로 로드
+		@RequestMapping("/admin/notice/list.do")
+		public String list(NoticeDTO notice, Model model) throws Exception {
+			System.out.println("공지사항 리스트 출력");
+
+			System.out.println("현재페이지 : " + notice.getPageNo());
+
+			notice.getStartNo();
+			notice.getEndNo();
+			// model.addAttribute("noticelist",noticeService.getNoticeList(notice) );
+			model.addAttribute("result", noticeService.getNoticePageList(notice));
+
+			System.out.println("notice리스트제대로 왔는지: " + noticeService.getNoticeList(notice));
+
+			return "admin/noticeList";
+		}
+		
+		
+//게시판 어드민계정 가져오기
+		@RequestMapping("/admin/board/list.do")
+		public String getPaginglist(BoardDTO board, Integer startnum, Integer endnum, Model model) throws Exception {
+	    	System.out.println("페이징된 게시판 가져오기");
+	    	System.out.println("컨트롤러에 넘어간 객체 확인 startnum: " + startnum);
+	    	System.out.println("컨트롤러에 넘어간 객체 확인 endnum: " + endnum);
+	    	
+	    		if(startnum == null){
+	    			board.setStartnum(1);
+	    			board.setEndnum(10);
+	    			model.addAttribute("boardList", boardService.getPagingcontents(board));
+	    			model.addAttribute("isSearched", false);
+	    		}else {
+	    			board.setStartnum(startnum);
+	    			board.setEndnum(endnum);
+	    			model.addAttribute("boardList", boardService.getPagingcontents(board));
+	    			model.addAttribute("isSearched", false);
+	    		}
+	    		
+	    		model.addAttribute("totalcount", boardService.totalcount());
+	    
+	    	
+	    	System.out.println("getPaginglist 쿼리문 걸쳐 받아온 boardlist : " + boardService.getPagingcontents(board));
+	  
+			return "admin/boardList";
+			
+		} 
+
 		
 		
 		

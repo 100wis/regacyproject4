@@ -18,8 +18,8 @@
       <!-- 로그인 O -->
       <c:if test="${loginadmin != null}">
         <li id="myPage"><a href="<c:url value='/admin/list.do'/>">회원관리</a></li>
-        <li id="myPage"><a href="<c:url value='/notice/list.do'/>">공지사항 관리</a></li>
-        <li id="myPage"><a href="<c:url value='/board/list.do'/>">게시판 관리</a></li>
+        <li id="myPage"><a href="<c:url value='/admin/notice/list.do'/>">공지사항 관리</a></li>
+        <li id="myPage"><a href="<c:url value='/admin/board/list.do'/>">게시판 관리</a></li>
         <li id="logout"><a href="#" id="logoutbutton" onclick="logout()">로그아웃</a></li>
       </c:if>
 

@@ -22,12 +22,101 @@ public class NoticeService {
 	
 	}
 	
-	//1. 공지사항 목록
-	public List<NoticeDTO> getNoticeList() throws Exception {
+	//공지사항 목록
+	public  Map<String, Object> getNoticeList(NoticeDTO notice) throws Exception {
 		System.out.println("NoticeService.setNoticeDAO() 함수 호출됨");
 		
-		return noticeDAO.getNoticeList();
-	} // getNoticeList
+		//1. 전체 건수를 얻는다
+		notice.setTotalCount(noticeDAO.totallidstcount());
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("notice", notice);
+		result.put("list", noticeDAO.getNoticeList(notice));
+		
+		return result;
+	} 
+	
+	//검색 페이징 
+	public Map<String, Object> getSearchedList(NoticeDTO notice) {
+		//1. 전체 건수를 얻는다
+		notice.setTotalCount(noticeDAO.SearchedTotalCount(notice));
+		
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("notice", notice);
+		result.put("list", noticeDAO.getSearchedList(notice));
+		return result;
+	}
+	
+	
+	//공지사항 상세보기
+	public NoticeDTO getNotice(NoticeDTO notice) throws Exception {
+		System.out.println("공지사항 상세보기 서비스");
+	return noticeDAO.getNotice(notice);
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	//메인에 TOP5 출력하기
+	public List<NoticeDTO> noticeTop5() throws Exception {
+		System.out.println("notice.service.noticeTop5() 함수 호출됨");
+		
+		return noticeDAO.noticeTop5();
+	} // noticeTop5
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 	
 	//1-2. 공지사항 페이지 목록 조회
@@ -48,13 +137,7 @@ public class NoticeService {
 		
 	} // getNoticeList
 	
-	
-	//2. 공지사항 상세보기
-	public NoticeDTO getNotice(int noticeId) throws Exception {
-		System.out.println("notice.service.getNotice() 함수 호출됨");
-		
-		return noticeDAO.getNotice(noticeId);
-	} // getNotice
+
 	
 	
 	//3. 공지사항 글쓰기
@@ -78,14 +161,7 @@ public class NoticeService {
 		
 		return noticeDAO.deleteNotice(noticeid);
 	} // deleteNotice
-	
-	
-	//6. 메인에 TOP5 출력하기
-	public List<NoticeDTO> noticeTop5() throws Exception {
-		System.out.println("notice.service.noticeTop5() 함수 호출됨");
-		
-		return noticeDAO.noticeTop5();
-	} // noticeTop5
+
 	
 	
 	//7. 조회수 증가
@@ -129,6 +205,10 @@ public class NoticeService {
 		
 		return noticeDAO.getNoticeListBoforeN(notice, notice.getIds().length);
 	}
+
+
+
+
 	
 
 

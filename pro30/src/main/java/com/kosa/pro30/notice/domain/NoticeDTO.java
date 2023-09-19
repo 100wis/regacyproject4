@@ -20,7 +20,6 @@ public class NoticeDTO {
 	private String writer_uid;	// 글쓴이
 	private Date reg_date;		// 작성날짜
 	private Date mod_date;		// 수정날짜
-	private int view_count;		// 조회수
 	private String delete_yn; 	// 삭제유무
 	private String fixed_yn; 	// 고정유무
 	
@@ -37,6 +36,8 @@ public class NoticeDTO {
 	private int navSize = 10;   // 페이지 하단에 출력되는 페이지의 항목수 (보통 10개씩 보여줌)
 	private int navStart = 0;   // 페이지 하단에 출력되는 페이지 시작 번호 : NavStart = ((PageNo-1) / NavSize) * NavSize + 1
 	private int navEnd = 0;     // 페이지 하단에 출력되는 페이지 끝 번호 : NavEnd = ((PageNo-1) / NavSize + 1) * NavSize
+	private int startnum = 0;
+	private int endnum = 0;
 	
 	
 	// 글 작성 시 엔터키 역할 해주는 메서드
@@ -66,15 +67,15 @@ public class NoticeDTO {
 	
 	
 	// 한 페이지의 시작 숫자 (보통 1, 11, 21, 31 ... )
-	public int getStartNo() { 
+	public void getStartNo() { 
 	
-		return (pageNo - 1) * pageLength + 1; 
+		startnum = (pageNo - 1) * pageLength + 1; 
 	} //getStartNo
 	
 	// 한 페이지의 끝 숫자 (보통 10, 20, 30... 이랑 완전 끝 페이지임)
-	public int getEndNo() { 
+	public void getEndNo() { 
 	
-		return pageNo * pageLength; 
+		endnum = pageNo * pageLength; 
 	} //getEndNo
 	
 	

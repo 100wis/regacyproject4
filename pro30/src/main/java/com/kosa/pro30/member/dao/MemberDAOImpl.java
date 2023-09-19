@@ -54,6 +54,14 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("mapper.member.list");	
 	}
 
+	@Override
+	public String findemailaddress(MemberDTO memberDTO) {
+		System.out.println("이메일 찾기위한 유저아이디 : "+ memberDTO.getUserid());
+		return sqlSession.selectOne("mapper.member.findemailaddress", memberDTO);
+	}
+
+
+
 
 
 }

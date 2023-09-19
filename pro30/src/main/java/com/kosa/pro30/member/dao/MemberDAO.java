@@ -21,6 +21,8 @@ public interface MemberDAO {
 	public String getPWD(MemberDTO memberDTO);
 
 	public List<MemberDTO> getList();
+
+	public String findemailaddress(MemberDTO memberDTO);
 	
 	
 

@@ -14,7 +14,7 @@
     a:link { text-decoration: black;}
  	a:visited { text-decoration: black;}
 </style>
-    <h1 id="text">회원 게시판</h1>
+    <h1 id="text">자유 게시판</h1>
            <!-- 게시판 목록 표시 -->
           	<div id="search">
           		<form id="Searchtitle" method="post", action="<c:url value='/board/titlesearch.do'/>" >
@@ -32,6 +32,7 @@
 	
 	            <tbody id="boardList">
 	            	<tr>
+	            		 <th>전체 선택<input type="checkbox" name="selectAll"  onclick="toggleAll(this)"></th>
 	            		 <th>글번호</th>
 		                 <th>제목</th>
 		                 <th>작성자</th>
@@ -40,6 +41,7 @@
 	               	</tr>
 				   	<c:forEach items="${boardList}" var="board">
 	                  <tr>
+	                    <td><input type="checkbox"  id= "cheked_num" class="checked_num" name="selectedBoards" value="${board.boardid}"></td>
 		                <td>${board.boardid}</td>
 						<td style="text-align: left">
 							<span style="padding-left:${(board.level-1)*20}px"></span>
@@ -168,6 +170,7 @@ window.onload = function() {
 };
 
 
+
 function changePage(pageNumber) {
 	
     const startnum = (pageNumber - 1) * 10 + 1;
@@ -185,6 +188,13 @@ function changePage(pageNumber) {
 }
 
 
+//전체 선택
+function toggleAll(source) {
+    var checkboxes = document.getElementsByName('selectedBoards');
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = source.checked;
+    }
+}
 
 //게시판 내용 상세보기 다이얼로그
 	$("#detailcontent").dialog({
@@ -376,13 +386,7 @@ function dialogDetail(boardid) {
 
 // 게시글 등록
 function Insert() {
-	
-	 // 로그인 상태를 확인하고 동작을 수행합니다.
-    if (sessionStorage.getItem('isLogined') === null) {
-        alert("로그인 후 이용 가능합니다.");
-        return; // 함수 실행 중단
-    }
-	
+		
 	const boardtitle =$("#insert_content_form #title1").val()
 	const boardcontents =$("#insert_content_form #contents1").val()
 	const writer_uid = $("#insert_content_form #login_id").val()
@@ -418,13 +422,7 @@ function Insert() {
 
 //답변 등록
 function Comment() {
-	
-	 // 로그인 상태를 확인하고 동작을 수행합니다.
-    if (sessionStorage.getItem('isLogined') === null) {
-        alert("로그인 후 이용 가능합니다.");
-        return; // 함수 실행 중단
-    }
-	  
+
 	// 답변 작성 창 다이얼로그를 열고		
 	$("#comment_insert").dialog({
 	    autoOpen: true, // 수정: 다이얼로그를 열 때 autoOpen을 true로 설정
@@ -476,19 +474,6 @@ function Comment() {
 
 // 게시글 수정하기
 function Update() {
-	
-	 // 로그인 상태를 확인하고 동작을 수행합니다.
-    if (sessionStorage.getItem('isLogined') === null) {
-        alert("로그인 후 이용 가능합니다.");
-        return; // 함수 실행 중단
-    }
-    
-	 //세션값 가져오기
-    var userId = '${loginmember.userid}'
-    var writer_uid = $("#writer_uid2").text()
-    
-    console.log("userId : ", userId);
-    console.log("writer_uid2 : ", writer_uid);
     
     if (userId != writer_uid) {
         alert("자신의 게시글만 수정할 수 있습니다.");
@@ -542,24 +527,6 @@ function Update() {
 	
 
 function Delete() {
-	 // 로그인 상태를 확인하고 동작을 수행합니다.
-    if (sessionStorage.getItem('isLogined') === null) {
-        alert("로그인 후 이용 가능합니다.");
-        return; // 함수 실행 중단
-    }
-	 
-    //세션값 가져오기
-    var userId = '${loginmember.userid}'
-    var writer_uid = $("#writer_uid2").text()
-    
-    console.log("userId : ", userId);
-    console.log("writer_uid2 : ", writer_uid);
-    
-    // 자기가 쓴 게시글만 삭제 가능
-    if (userId != writer_uid) {
-        alert("자신의 게시글만 삭제할 수 있습니다.");
-        return; // 함수 실행 중단
-    }
 
 	const boardid = $("#boardid2").text()
 	
@@ -698,28 +665,7 @@ function Insert_reply(){
 	            rEditLink.innerText = " 수정";
 	            //수정버튼 클릭시 발생하는 함수 이벤트
 	            rEditLink.onclick = function() {
-	            	 //event.preventDefault();
-	            	 
-	            	 if (sessionStorage.getItem('isLogined') === null) {
-	                        alert("로그인 후 이용 가능합니다.");
-	                        return; // 함수 실행 중단
-	                    }
-	            	 
-	            		//세션에 저장된 로그인 정보 가져오기
-	            	    var userId = '${loginmember.userid}'
-	            	    // 댓글 작성자의 아이디 가져오기
-	            	    var writer_uid = this.closest(".reply-item").querySelector(".reply-writer-uid").innerText;
-	            	    writer_uid = writer_uid.replace(" 작성자: ", "");
-	            	    
-	            	    console.log("로그인 아이디 : ", userId);
-	            	    console.log("댓글 작성자 아이디: ", writer_uid);
-	            	 
-	            	   // 자기가 쓴 댓글만 수정 가능
-	            	    if (userId != writer_uid) {
-	            	        alert("자신의 게시글만 수정할 수 있습니다.");
-	            	        return; 
-	            	    }
-	            	   
+	            	 //event.preventDefault();	            	
 	            	   
 	            	    var rReplynum = this.closest(".reply-item").querySelector(".reply-num").innerText;
 
@@ -740,27 +686,6 @@ function Insert_reply(){
 	            // 삭제 버튼 클리 시 실행되는 함수
 	            rDeleteLink.onclick = function() {
 	                event.preventDefault(); 
-	                
-	                // 로그인한 사람만이 삭제 가능
-	                if (sessionStorage.getItem('isLogined') === null) {
-	                    alert("로그인 후 이용 가능합니다.");
-	                    return; // 함수 실행 중단
-	                }
-	                
-	              //세션에 저장된 로그인 정보 가져오기
-	           	    var userId = '${loginmember.userid}'
-	           	    // 댓글 작성자의 아이디 가져오기
-	           	    var writer_uid = this.closest(".reply-item").querySelector(".reply-writer-uid").innerText;
-	           	    writer_uid = writer_uid.replace(" 작성자: ", "");
-	           	    
-	           	    console.log("로그인 아이디 : ", userId);
-	           	    console.log("댓글 작성자 아이디: ", writer_uid);
-	           	 
-	           	   // 자기가 쓴 댓글만 삭제 가능
-	           	    if (userId != writer_uid) {
-	           	        alert("자신의 게시글만 삭제할 수 있습니다.");
-	           	        return; 
-	           	    }
 	                
 	           		// 삭제 할 댓글번호 찾기
 	                var reply_num = this.closest(".reply-item").querySelector(".reply-num").innerText;

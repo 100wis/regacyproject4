@@ -174,6 +174,12 @@ public class MemberService {
 		return num;
 			
 	}
+
+		// 이메일 찾기
+		public String findemailaddress(MemberDTO member) {
+			
+			return memberDAO.findemailaddress(member);
+		}
 	
 	
 

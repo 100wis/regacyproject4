@@ -61,6 +61,13 @@
 		from member
 		where adminYN = 'N'
 	</select>
+	
+<!-- email 찾기 -->
+	<select id="findemailaddress" resultType="String" parameterType="MemberDTO">
+		select email
+		from member
+		where userid = #{userid}
+	</select>	
 
 
 </mapper>

@@ -1,6 +1,40 @@
 @charset "UTF-8";
 
 
+input#Searchbutton {
+    background-color: pink;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+
+#searchTitle {
+    width: 236px;
+    height: 26px;
+}
+
+
+#strong{
+    font-size: 2rem;
+    color: #eb7cbb;
+}
+
+
+#pagenums{
+    color: pink;
+    /* margin-top: 28px; */
+    /* background-color: white; */
+    board: 1px solid #f4dfea;
+    /* padding: 8px; */
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    /* border-color: #f4dfea; */
+    /* border-radius: 50px; */
+}
+
+
 #insert_button {
     color: white;
     background-color: #febad1;
@@ -117,30 +151,12 @@ th {
     margin-top: 20px;
 }
 
-#searchTitle {
-	float : right;
-	width : 250px;
-	height: 30px;
-}
-
 #pageLength {
 	margin-right : 20px;
 }
 
 
-#searchTitleBtn {
-	height: 30px;
-	background-color: #ffb858;
-	color: white;
-	cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 700;
-    border: 2px solid #e78f18;
-    border-radius: 5px; /* 버튼 모서리 둥글게 */
-    margin-right: 10px; /* 버튼 간격 조정 */
-    padding: 0 10px; /* 버튼 가로 간격 조정 */
-}
+
 
 /* 고정여부가 'Y'인 행에 배경색 적용 */
 tr.fixed-row {
