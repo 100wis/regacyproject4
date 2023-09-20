@@ -103,6 +103,10 @@ public class BoardService {
 			System.out.println("마지막 보드 아이디 가져오기 서비스");
 			return boardDAO.getLastInsertBoardid();
 		}
+
+		public BoardDTO getDetail(BoardDTO board) {
+			return boardDAO.getDetail(board);
+		}
 	
 	
 	

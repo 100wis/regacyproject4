@@ -359,11 +359,36 @@ function dialogDetail(boardid) {
 		      
 		           boardid2.innerText = data.boardDetail.boardid;  
 		    	   title2.innerText = data.boardDetail.title;  
-		    	   contents2.innerText = data.contents;  
+		    	   contents2.innerText = data.boardDetail.contents;  
 		    	   writer_uid2.innerText = data.boardDetail.writer_uid;  
 		    	   reg_date2.innerText = data.boardDetail.reg_date;  
 		    	   view_count2.innerText = data.boardDetail.view_count;  
 		    	   getreplyList(data.boardDetail.boardid)
+		    	   
+		    	   
+		
+		    	   console.log("data.fileList : " , data.fileList)
+		    	
+		    	   		const attachList = data.fileList;
+		    	   
+		    	       for(let i=0;i<attachList.length;i++){
+							const attach = attachList[i]
+		    		   
+		    		   console.log("attach : " , attach)
+		    		   
+		    		// 이미지 파일 경로 
+		    		   const imagePath = "<c:url value='/attacheFile/download.do?fileNo="+attach.fileNo+"'/>" ; // 실제 이미지 파일 경로로 바꿔주세요.
+		 				console.log("attach.fileNameReal : ",attach.fileNameReal)
+		    		   // file_detail 요소 가져오기
+		    		   const fileDetail = document.querySelector("#file_detail");
+
+		    		   // 이미지를 생성하고 추가
+		    		   const imgElement = document.createElement("img"); 
+		    		   imgElement.src = imagePath; // 이미지 파일 경로 설정
+		    		   imgElement.className ="files_detail";
+		    		   fileDetail.appendChild(imgElement);
+
+		    	   }
 		        
 		      },
 		      error: function (error) {
@@ -830,6 +855,15 @@ function removeAllReplies() {
     replyItems.forEach(function(replyItem) {
         replyItemContainer.removeChild(replyItem);
     });
+    
+    // 첨부 파일을 포함한 모든 파일 아이템 삭제
+    const files_contain = document.querySelector("#file_detail");
+    const filesItems = files_contain.querySelectorAll(".files_detail");
+    
+    filesItems.forEach(function(filesItem) {
+        files_contain.removeChild(filesItem);
+    });
+
 }
 
 

@@ -196,7 +196,7 @@ public class BoardController {
 				
 				fileList.add(AttacheFileDTO.builder()
 						.fileNameOrg(fileNameOrg)
-						.fileNameReal(realFolder + "\\" + fileNameReal)
+						.fileNameReal(CURR_IMAGE_REPO_PATH +"\\" + realFolder + "\\" + fileNameReal)
 						.length((int) mFile.getSize())
 						.contentType(mFile.getContentType())
 						.build()); 
