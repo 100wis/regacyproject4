@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kosa.pro30.board.dao.AttacheFileDAO;
 import com.kosa.pro30.board.dao.BoardDAO;
@@ -21,6 +22,9 @@ public class BoardService {
 	
 	@Autowired
 	private AttacheFileDAO attacheFileDAO;
+	
+	@Autowired
+	private AttacheFileService attacheFileService;
 
 	// 게시판 재정의
 	public BoardService() {
@@ -45,17 +49,36 @@ public class BoardService {
 			return boardDAO.totalcount();
 		}
 		
-	//게시판 상세내용 가져오기
-		public BoardDTO getDetail(BoardDTO board) {
-			System.out.println("보드서비스 : 게시글 상세정보 ");
+	//게시판 상세내용 가져오기 파일 상세내용도 가져오기
+		public Map<String, Object> detail(BoardDTO board) throws Exception {
+			System.out.println("뷰카운트 증가  서비스");
+			boardDAO.plusViewcount(board);
 			
-			return boardDAO.getDetail(board);
+			
+			System.out.println("보드서비스 : 게시글 상세정보 ");
+	
+			 Map<String, Object> jsonObject = new HashMap<>();
+			 jsonObject.put("boardDetail", boardDAO.getDetail(board));
+			 jsonObject.put("fileList", attacheFileService.getAttacheFileList(board));
+			 
+			 
+			
+			return jsonObject;
 		}
 		
 	//게시글 등록
-		public int insert(BoardDTO board) {
+		@Transactional
+		public boolean insert(BoardDTO board, List<AttacheFileDTO> fileList) {
 			System.out.println("보드 서비스 : 게시글 등록 ");
-			return boardDAO.insert(board);
+			int boardid = boardDAO.insert(board);
+			
+			if(fileList != null) {
+				for(AttacheFileDTO attachfile : fileList ) {
+					attachfile.setBoardid(boardid);
+					attacheFileService.insert(attachfile);
+				}
+			}
+			return true;
 		}
 		
 	//게시글 수정하기	
@@ -75,10 +98,10 @@ public class BoardService {
 			return boardDAO.SearchTitle(board);	
 		}
 
-		public void plusViewcount(BoardDTO board) {
-			System.out.println("조회수증가 서비스");
-			boardDAO.plusViewcount(board);
-			
+
+		public int getLastInsertBoardid() {
+			System.out.println("마지막 보드 아이디 가져오기 서비스");
+			return boardDAO.getLastInsertBoardid();
 		}
 	
 	

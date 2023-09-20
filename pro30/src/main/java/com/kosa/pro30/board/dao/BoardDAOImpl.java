@@ -47,8 +47,9 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int insert(BoardDTO board) {
 		System.out.println("DAOimpl insert에  온 보드 객체 : " + board);
-		int result = sqlSession.insert("mapper.board.insert",board);
-		return result;
+		sqlSession.insert("mapper.board.insert",board);
+		System.out.println(board.getBoardid());
+		return board.getBoardid();
 	}
 	
 //게시글 수정하기	
@@ -78,6 +79,13 @@ public class BoardDAOImpl implements BoardDAO {
 		System.out.println("조회수증가 DAO");
 		sqlSession.update("mapper.board.plusViewcount", board);
 		
+	}
+	@Override
+	public int getLastInsertBoardid() {
+		System.out.println("마지막으로 추가된 보드 아이디 DAO");
+		int boardid = sqlSession.update("mapper.board.getLastInsertBoardid");
+		System.out.println();
+		return boardid;
 	}	
 
 

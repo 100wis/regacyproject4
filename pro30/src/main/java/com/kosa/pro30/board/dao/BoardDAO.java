@@ -27,6 +27,8 @@ public interface BoardDAO {
 
 	public void plusViewcount(BoardDTO board);
 
+	public int getLastInsertBoardid();
+
 
 
 	

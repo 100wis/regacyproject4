@@ -82,6 +82,8 @@
 				</p>	
 			</div>
 			<div id = contents2><p>${board.contents}</p></div>
+				<!-- 업로드될 파일이 들어갈 위치 -->
+			<div id="file_detail"></div>
 			<div id="reply">
 			<input type="button" id="inser_reply_button" value="댓글쓰기">	
 				<div class="reply-item-container">
@@ -94,9 +96,15 @@
 
   <!-- 게시글 등록   -->
         <div id="insert_content_form" title="게시판 등록">
-        	<input type="hidden" id="login_id" value="${loginmember.userid }"/>
-	        <input type="text" id="title1" placeholder="제목">
-	        <textarea id="contents1" placeholder="내용"></textarea>
+  			<form id ="fileUploadForm">
+	        	<input type="hidden" id="login_id" name ="writer_uid" value="${loginmember.userid }"/>
+		        <input type="text" id="title1" name="title" placeholder="제목">
+		        <textarea id="contents1" name="contents" placeholder="내용"></textarea>
+		        <div id="fileUpload" >
+		        	<input type="button" value="파일 추가" onclick="addFile()"/>
+		        	<div id="add_file"></div>
+		        </div>
+        	</form>
        	</div>
        	
   <!-- 답변 등록   -->
@@ -183,7 +191,6 @@ function changePage(pageNumber) {
     // 폼을 제출하는 기본 동작을 막고, 원하는 동작을 수행
     document.getElementById('pageForm').submit();
 }
-
 
 
 //게시판 내용 상세보기 다이얼로그
@@ -332,13 +339,7 @@ function dialogDetail(boardid) {
 		const writer_uid2 = document.querySelector("#writer_uid2");
 		const reg_date2 = document.querySelector("#reg_date2");
 		const view_count2 = document.querySelector("#view_count2");
-		
-		console.log("boardid2:", boardid2);
-	    console.log("title2:", title2);
-	    console.log("contents2:", contents2);
-	    console.log("writer_uid2:", writer_uid2);
-	    console.log("reg_date2:", reg_date2);
-	    console.log("view_count2:", view_count2);
+		const file_detail = document.querySelector("#file_detail");
 		
 	
 		console.log("boardid:", boardid);
@@ -356,13 +357,13 @@ function dialogDetail(boardid) {
 		      data: JSON.stringify(data),
 		      success: function (data) {
 		      
-		           boardid2.innerText = data.boardid;  
-		    	   title2.innerText = data.title;  
+		           boardid2.innerText = data.boardDetail.boardid;  
+		    	   title2.innerText = data.boardDetail.title;  
 		    	   contents2.innerText = data.contents;  
-		    	   writer_uid2.innerText = data.writer_uid;  
-		    	   reg_date2.innerText = data.reg_date;  
-		    	   view_count2.innerText = data.view_count;  
-		    	   getreplyList(data.boardid)
+		    	   writer_uid2.innerText = data.boardDetail.writer_uid;  
+		    	   reg_date2.innerText = data.boardDetail.reg_date;  
+		    	   view_count2.innerText = data.boardDetail.view_count;  
+		    	   getreplyList(data.boardDetail.boardid)
 		        
 		      },
 		      error: function (error) {
@@ -382,38 +383,46 @@ function Insert() {
         alert("로그인 후 이용 가능합니다.");
         return; // 함수 실행 중단
     }
-	
-	const boardtitle =$("#insert_content_form #title1").val()
-	const boardcontents =$("#insert_content_form #contents1").val()
-	const writer_uid = $("#insert_content_form #login_id").val()
-	
-	console.log("boardtitle:" + boardtitle);
-	console.log("boardcontents:" + boardcontents);
-	console.log("writer_uid:" + writer_uid);
-	
-	const data = {
-			title: boardtitle,
-			contents: boardcontents,
-			writer_uid: writer_uid	
-	    };
-	
-	console.log("data:", data);
-	
-	 $.ajax({
- 	      url: "<c:url value='/board/insert.do'/>",
- 	      method: "POST",
- 	      contentType: "application/json; charset=UTF-8",
- 	      data: JSON.stringify(data),
- 	      success: function (json) {
- 	        alert(json.message);
- 	        location.href = "<c:url value='/board/list.do'/>";
- 	      },
- 	      error: function (error) {
- 	        console.error("Error:", error);
- 	      }
- 	    });
+	 
+	 fileUploadForm()
+	 
 	 return false;
 }
+
+
+var cnt=1;
+//파일 선택 하는 버튼 추가하기
+function addFile() {
+	$("#add_file").append("<br>"+"<input type='file' name='file"+cnt+"'/>");
+	cnt++;
+}
+
+//서버에 게시글 등록도 하고 파일도 업로드 함수
+function fileUploadForm(){ 
+    var form = $('#fileUploadForm')[0];
+    var formData = new FormData(form);
+	
+
+    // AJAX로 서버에 데이터 전송
+    $.ajax({
+        url: "<c:url value='/board/insert.do'/>",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            // 성공적으로 등록되었을 때의 처리
+        	alert("파일 등록에 성공했습니다.");
+
+        },
+        error: function (error) {
+            // 등록 실패 시의 처리
+            console.error("에러 발생: ", error);
+            alert("파일 등록에 실패했습니다.");
+        }
+    });
+}
+
 
 
 //답변 등록
@@ -1012,36 +1021,6 @@ const replyItemContainer = document.querySelector(".reply-item-container");
 
 
 
-/* function sendEmail(){
-	alert("이메일 함수 진입?"); 
-	  
-    //원글 작성자의 userid
-      var writer_uid = $("#writer_uid2").text()
-      
-      console.log("writer_uid",writer_uid)
-
-      const data ={
-      	userid : writer_uid
-      }
-    
-      console.log("data",data)
-
-
-      //email보내기
-       $.ajax({
-               url: "<c:url value='/sendMail.do'/>",
-               method: "get",
-               contentType: "application/json; charset=UTF-8",
-               data: JSON.stringify(data),
-               success: function (json) {
-        
-                
-               },
-               error: function (error) {
-                   console.error("Error:", error);
-               }
-           });
-} */
 
 
 </script>

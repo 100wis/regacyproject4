@@ -52,8 +52,24 @@
 	
 <!-- 게시글 등록하기 -->
 		<insert id="insert">
-		    INSERT INTO board (pid, boardid, title, contents, writer_uid) 
-		    VALUES (#{pid}, boardid_sequence.NEXTVAL, #{title}, #{contents}, #{writer_uid})
+		   <selectKey keyProperty="boardid" resultType="int"  order="BEFORE">
+			select 
+				boardid_sequence.NEXTVAL boardid 
+			from dual
+		</selectKey>
+		INSERT INTO board (
+			  pid
+			, boardid
+			, title
+			, contents
+			, writer_uid
+		) VALUES (
+			  #{pid}
+			, #{boardid}
+			, #{title}
+			, #{contents}
+			, #{writer_uid}
+		)
 		</insert>
 
 <!-- 게시글 수정하기 -->
@@ -88,6 +104,11 @@
 			UPDATE board 
 			SET view_count = view_count+1
 			WHERE boardid = #{boardid}		
-		</update>			
+		</update>		
+		
+<!-- 가장 최신 댓글 가져오기 -->
+		<select id="getLastInsertBoardid" resultType="int" >
+		    SELECT * FROM board WHERE boardid = (SELECT MAX(boardid) FROM board)
+		</select>	
 		
 </mapper>

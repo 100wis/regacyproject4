@@ -29,7 +29,7 @@ public class AttacheFileDAOImpl implements AttacheFileDAO {
 		return sqlSession.selectOne("mapper.attache_file.getAttacheFile", fileNo);
 	}
 
-
+	// 첨부파일 DB에 넣기
 	@Override
 	public void insert(AttacheFileDTO attacheFile) {
 		sqlSession.insert("mapper.attache_file.insert", attacheFile);
