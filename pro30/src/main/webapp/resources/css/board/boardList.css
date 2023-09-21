@@ -1,6 +1,50 @@
 @charset "UTF-8";
 
 
+
+/* noticeCRUD버튼들 */
+/* 인서트버튼만 마진 레프트 줘야함 맨앞이라 애만 줘야 오른쪽에 있음  */
+#insert_button {
+    color: white;
+    background-color: #febad1;
+    margin-left: 208px;
+    boarder: none;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#delete_button {
+    color: white;
+    background-color: #febad1;
+    boarder: none;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#fix_button {
+    color: white;
+    background-color: #febad1;
+    boarder: none;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#none_fix_button {
+    color: white;
+    background-color: #febad1;
+    boarder: none;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+/* noticeCRUD버튼들 */
+
+
+
 input#Searchbutton {
     background-color: pink;
     padding: 6px 10px;
@@ -34,16 +78,6 @@ input#Searchbutton {
     /* border-radius: 50px; */
 }
 
-
-#insert_button {
-    color: white;
-    background-color: #febad1;
-    margin-left: 746px;
-    boarder: none;
-    border: none;
-    padding: 10px;
-    border-radius: 20px;
-}
 
 #insert_board:hover {
 border-color : #fd71a2
@@ -89,7 +123,7 @@ a:link, a:visited {
 }
 
 #text {
-    margin-top: 100px;
+    margin-top: 45px;
     margin-bottom: 30px;
     text-align: center;
 }

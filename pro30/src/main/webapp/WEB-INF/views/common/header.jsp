@@ -2,26 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<link rel="stylesheet" href="<c:url value='/resources/css/member/headerdialog.css' />"> 
 <style>
-#deleteMember {
-  display: none; /* 초기에는 숨김 상태로 설정 */
-}
 
 
-#lookforIDform {
-  display: none; /* 초기에는 숨김 상태로 설정 */
-}
 
-#lookforPWDform {
-  display: none; /* 초기에는 숨김 상태로 설정 */
-}
+
 </style>
 
 <!-- //////////////////////////////////////헤더부분 수정시 주의 필요 /////////////////////////////-->
  <header>
   <div id="logo">
-    <a href="<c:url value='/main.do'/>">
+    <a href="<c:url value='/'/>">
       <h1>jihye's style</h1>
     </a>
   </div>
@@ -193,7 +185,7 @@
       success: function (json) {
         alert(json.message);
         if (json.status) {
-          location.href = "<c:url value='/main.do'/>";
+          location.href = "<c:url value='//'/>";
           sessionStorage.removeItem('isLogined');
         }
       },
@@ -228,7 +220,7 @@
 	        if (json.status) {
 	          // 로그인이 성공하면 원하는 동작을 수행 (예: 리디렉션)
 	          sessionStorage.setItem('isLogined', true);
-	          location.href = "<c:url value='/main.do'/>";
+	          location.href = "<c:url value='//'/>";
 	        }
 	      },
 	      error: function (error) {
@@ -306,8 +298,8 @@
                  // 저장 버튼을 클릭하면 또 다른 다이얼로그를 열기
                  var lookforID = $("#lookforIDform").dialog({
                    autoOpen: false,
-                   height: 300,
-                   width: 300,
+                   height: 500,
+                   width: 500,
                    modal: true,
                    buttons: {
                  	  "아이디 찾기" : lookingID,
@@ -392,7 +384,7 @@
 	        alert(json.message);
 	        if (json.status) {
 	          // 업데이트 성공하면 원하는 동작을 수행 (예: 리디렉션)
-	          location.href = "<c:url value='/main.do'/>";
+	          location.href = "<c:url value='//'/>";
 	        }
 	      },
 	      error: function (error) {
@@ -426,7 +418,7 @@
 		        alert(json.message);
 		        if (json.status) {
 		          // 탈퇴에 성공하면 
-		          location.href = "<c:url value='/main.do'/>";
+		          location.href = "<c:url value='//'/>";
 		        }
 		      },
 		      error: function (error) {
@@ -519,7 +511,7 @@
       	        alert(json.message);
       	        if (json.status) {
       	          // 업데이트 성공하면 원하는 동작을 수행 (예: 리디렉션)
-      	          location.href = "<c:url value='/main.do'/>";
+      	          location.href = "<c:url value='//'/>";
       	        }
       	      },
       	      error: function (error) {

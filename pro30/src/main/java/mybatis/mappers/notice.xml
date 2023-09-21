@@ -46,15 +46,79 @@
 <!--공지사항 상세보기-->
 		<select id="detail" resultType="NoticeDTO" parameterType="NoticeDTO" >
 			select * from notice where noticeid = #{noticeid}
-		</select>		
+		</select>
+		
+<!--공지사항 등록-->
+		<insert id="insert"  >
+			insert into notice(noticeid, title, contents, writer_uid, fixed_yn)
+			values(notice_seq.nextval, #{title}, #{contents},#{writer_uid},#{fixed_yn})
+		</insert>			
+			
+<!--공지사항 수정-->
+		<update id="update"  >
+			update notice 
+			set title = #{title}, contents = #{contents}, fixed_yn = #{fixed_yn}
+			where noticeid =#{noticeid}
+		</update>	
+		
+<!--한개 삭제 프로시저-->
+	<select id="deleteOne" statementType="CALLABLE">
+	  {
+	    CALL DEL_NOTICE (
+	    #{noticeid} ,
+	    #{DELETEYN, mode=OUT, jdbcType=VARCHAR}
+	    )        
+	  }
+	</select>
+
+<!--여러건 체크박스로 삭제-->
+	<select id="deleteCheck" statementType="CALLABLE">
+	  {
+	    CALL DEL_NOTICE_FOR_ID (
+	    #{ids} ,
+	    #{DELETE_COUNT, mode=OUT, jdbcType=VARCHAR}
+	    )        
+	  }
+	</select>
+
+<!--여러건 고정하기-->	
+		<select id="fixes" statementType="CALLABLE">
+	  {
+	    CALL FIXES (
+	    #{ids} ,
+	    #{Fixed_COUNT, mode=OUT, jdbcType=VARCHAR}
+	    )        
+	  }
+	</select>
 	
+<!--여러건 고정하기-->	
+		<select id="none_fixes" statementType="CALLABLE">
+	  {
+	    CALL NONE_FIXES (
+	    #{ids} ,
+	    #{Fixed_COUNT, mode=OUT, jdbcType=VARCHAR}
+	    )        
+	  }
+	</select>
 	
-	
+<!-- noticeTop5 -->	
+		<select id="noticeTop5" resultType="NoticeDTO">
+		<![CDATA[
+			select 
+				rownum, sub.*  
+			from (
+				select 
+					* 
+				from notice 
+				order by fixed_yn desc, noticeid desc
+			) sub 
+			where rownum <=5
+		]]>
+	</select>
 	
 <!-- 	
 		<select id="callTotalCount" statementType="CALLABLE">
     		{CALL TOTALCOUNT(#{result, mode=OUT, jdbcType=INTEGER})}
 		</select> -->
-
 	
 </mapper>

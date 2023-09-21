@@ -14,6 +14,7 @@
     a:link { text-decoration: black;}
  	a:visited { text-decoration: black;}
 </style>
+<h5 id="text">* 관리자 페이지 입니다*</h5>
     <h1 id="text">자유 게시판</h1>
            <!-- 게시판 목록 표시 -->
           	<div id="search">
@@ -71,6 +72,12 @@
 		<c:if test="${isSearched == true}" >    
 			<a href="<c:url value='/board/list.do'/>">전체 게시판 목록으로 돌아가기</a>
 		</c:if>
+		
+<!-- CRUD 버튼 -->		
+		<div id="admin_button">
+			<input type="button" id ="insert_button" class="noticeCRUDbutton" value="추가">
+			<input type="button" id ="delete_button" value="삭제" class="noticeCRUDbutton"  onclick="deleteCheck()">
+		</div>
           
   <!-- 게시판 상세보기 다이얼로그  -->
         <div id="detailcontent">

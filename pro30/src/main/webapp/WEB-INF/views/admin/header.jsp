@@ -119,7 +119,7 @@
          success: function (json) {
            alert(json.message);
            if (json.status) {
-             location.href = "<c:url value='/main.do'/>";
+             location.href = "<c:url value='/admin.do'/>";
            }
          },
          error: function (error) {

@@ -23,7 +23,7 @@ public class MainController {
 	@Autowired
 	private NoticeService noticeService;
 
-	@RequestMapping("main.do")
+	@RequestMapping("/")
 	public String main(HttpServletRequest req, HttpServletResponse res) throws Exception {
     	System.out.println("main() invoked. ");
 		

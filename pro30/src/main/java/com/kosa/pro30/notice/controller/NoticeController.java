@@ -37,7 +37,7 @@ public class NoticeController {
 		notice.getStartNo();
 		notice.getEndNo();
 		// model.addAttribute("noticelist",noticeService.getNoticeList(notice) );
-		model.addAttribute("result", noticeService.getNoticePageList(notice));
+		model.addAttribute("result", noticeService.getNoticeList(notice));
 
 		System.out.println("notice리스트제대로 왔는지: " + noticeService.getNoticeList(notice));
 
@@ -70,115 +70,71 @@ public class NoticeController {
 		return detail;
 	}
 	
+// 공지사항 등록
+		@ResponseBody
+		@RequestMapping("/notice/insert.do")
+		public Map<String, Object> insert(@RequestBody NoticeDTO notice) throws Exception {
+			System.out.println("공지사항 등록 컨트롤러");
+			
+		return noticeService.insert(notice);
+		}
+		
+
+// 공지사항 수정
+		@ResponseBody
+		@RequestMapping("/notice/update.do")
+		public Map<String, Object> update(@RequestBody NoticeDTO notice) throws Exception {
+			System.out.println("공지사항 수정 컨트롤러");
+			
+		return noticeService.update(notice);
+		}
+		
+// 공지사항 한건 삭제
+		@ResponseBody
+		@RequestMapping("/notice/deleteOne.do")
+		public Map<String, Object> deleteOne(@RequestBody NoticeDTO notice) throws Exception {
+			System.out.println("공지사항 삭제 컨트롤러");
+			
+		return noticeService.deleteOne(notice);
+		}
 	
-	
-	
-	
-	
-	
+// 공지사항 체크박스 여러건 삭제
+		@ResponseBody
+		@RequestMapping("/notice/deleteCheck.do")
+		public Map<String, Object> deleteCheck(@RequestBody NoticeDTO notice) throws Exception {
+			System.out.println("공지사항 삭제 컨트롤러");
+			System.out.println(notice.getIds().toString());
+			
+		return noticeService.deleteCheck(notice);
+		}	
+
+// 공지사항 체크박스 여러건 고정
+		@ResponseBody
+		@RequestMapping("/notice/fixes.do")
+		public Map<String, Object> fixes(@RequestBody NoticeDTO notice) throws Exception {
+			System.out.println("공지사항 고정컨트롤러");
+			System.out.println(notice.getIds().toString());
+			
+		return noticeService.fixes(notice);
+		}		
+		
+// 공지사항 체크박스 여러건 고정해제
+		@ResponseBody
+		@RequestMapping("/notice/none_fixes.do")
+		public Map<String, Object> none_fixes(@RequestBody NoticeDTO notice) throws Exception {
+			System.out.println("공지사항 고정해제 컨트롤러");
+			System.out.println(notice.getIds().toString());
+			
+		return noticeService.none_fixes(notice);
+		}		
+
+
 	
 	
 	
 	
 	
 
-	/*
-	 * 
-	 * // 등록
-	 * =============================================================================
-	 * ========
-	 * 
-	 * 
-	 * // 3. 공지사항 등록 페이지 public String insertForm(HttpServletRequest req,
-	 * HttpServletResponse res) throws Exception {
-	 * System.out.println("notice.controller.insertForm() invoked.");
-	 * 
-	 * return "notice/insert.jsp"; }
-	 * 
-	 * // 4. 공지사항 등록 public String insert(NoticeDTO notice, HttpServletRequest req,
-	 * HttpServletResponse res) throws Exception {
-	 * System.out.println("notice.controller.insert() invoked."); JSONObject
-	 * jsonResult = new JSONObject(); boolean status = service.noticeInsert(notice);
-	 * 
-	 * jsonResult.put("status", status); jsonResult.put("message", status ?
-	 * "공지사항 글 작성이 등록되었습니다" : "공지사항 글 작성시 오류가 발생하였습니다");
-	 * 
-	 * return jsonResult.toString(); }
-	 * 
-	 * 
-	 * // 삭제
-	 * =============================================================================
-	 * ========
-	 * 
-	 * 
-	 * // 5. 공지사항 글 삭제 public String delete(NoticeDTO notice, HttpServletRequest
-	 * req, HttpServletResponse res) throws Exception {
-	 * System.out.println("notice.controller.delete() invoked."); JSONObject
-	 * jsonResult = new JSONObject(); boolean status =
-	 * service.noticeDelete(notice.getNoticeid());
-	 * 
-	 * jsonResult.put("status", status); jsonResult.put("message", status ?
-	 * "공지사항 글이 삭제되었습니다" : "공지사항 글 삭제시 오류가 발생하였습니다");
-	 * 
-	 * return jsonResult.toString(); }
-	 * 
-	 * // 6. 공지사항 글 다중 삭제 public String deletes(NoticeDTO notice, HttpServletRequest
-	 * req, HttpServletResponse res) throws Exception {
-	 * System.out.println("notice.controller.deletes() "); JSONObject jsonResult =
-	 * new JSONObject(); boolean status = service.noticeDeletes(notice);
-	 * 
-	 * jsonResult.put("status", status); jsonResult.put("message", status ?
-	 * "공지사항 글 삭제 되었습니다" : "공지사항 글 삭제시 오류가 발생하였습니다"); if (status) {
-	 * jsonResult.put("noticeList", service.getNoticeListBoforeN(notice)); }
-	 * 
-	 * 
-	 * return jsonResult.toString(); }
-	 * 
-	 * 
-	 * // 수정
-	 * =============================================================================
-	 * ========
-	 * 
-	 * 
-	 * // 6. 공지사항 수정 페이지 public String updateForm(NoticeDTO notice,
-	 * HttpServletRequest req, HttpServletResponse res) throws Exception {
-	 * System.out.println("notice.controller.updateForm() invoked.");
-	 * 
-	 * try { req.setAttribute("notice", service.getNotice(notice.getNoticeid())); }
-	 * catch (Exception e) { e.printStackTrace(); }
-	 * 
-	 * return "notice/update.jsp"; }
-	 * 
-	 * // System.out.println("notice.controller.detail() invoked."); //
-	 * System.out.println("뭔데 = " + notice); // JSONObject result = new
-	 * JSONObject(); // // NoticeDTO detail =
-	 * service.getNotice(notice.getNoticeid()); // result.put("noticeid",
-	 * detail.getNoticeid()); // result.put("title", detail.getTitle()); //
-	 * result.put("contents", detail.getContents()); // result.put("writer_uid",
-	 * detail.getWriter_uid()); // result.put("reg_date", detail.getReg_date()); //
-	 * result.put("view_count", detail.getView_count()); // // return
-	 * result.toString();
-	 * 
-	 * // 7. 공지사항 수정
-	 * 
-	 * public String update(NoticeDTO notice, HttpServletRequest req,
-	 * HttpServletResponse res) throws Exception {
-	 * System.out.println("notice.controller.update() invoked."); JSONObject result
-	 * = new JSONObject();
-	 * 
-	 * boolean status = service.noticeUpdate(notice);
-	 * 
-	 * result.put("status", status); result.put("message", status ?
-	 * "공지사항 글이 수정되었습니다" : "공지사항 글 수정 시 오류가 발생하였습니다");
-	 * 
-	 * return result.toString(); }
-	 * 
-	 * 
-	 * // TOP5
-	 * =============================================================================
-	 * ========
-	 * 
-	 */
 
 	  
 	 

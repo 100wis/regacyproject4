@@ -139,7 +139,7 @@ public class AdminController {
 			notice.getStartNo();
 			notice.getEndNo();
 			// model.addAttribute("noticelist",noticeService.getNoticeList(notice) );
-			model.addAttribute("result", noticeService.getNoticePageList(notice));
+			model.addAttribute("result", noticeService.getNoticeList(notice));
 
 			System.out.println("notice리스트제대로 왔는지: " + noticeService.getNoticeList(notice));
 

@@ -20,14 +20,15 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class FileDownloadController {
-	private static String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
+	//나는 풀경로라 필요없음
+	//private static String CURR_IMAGE_REPO_PATH = "C:\\file_repo";
 	
 	@Autowired
 	AttacheFileService attacheFileService;
 	
 
 	@RequestMapping("/attacheFile/download.do")
-	protected void download(@RequestParam("fileNo") String fileNo,
+	protected void download(@RequestParam("file No") String fileNo,
 			                 HttpServletResponse response) throws Exception {
 		
 		System.out.println("실행되는지...");
